@@ -6,13 +6,14 @@
 ### Server Setup
 
 * `brew install yarn`
-* `cd server`
+* `git clone https://github.com/thujone/galactic-encounters.git`
+* `cd galactic-encounters/server`
 * `yarn install`
+* `yarn build`
 * Start the server in watch mode: `yarn start`
 * Watch the terminal to make sure the SWAPI data is fetched properly. This will actually take a little time (maybe 90 seconds or so). The terminal will let you know when the fetching is complete.
 * To transpile the typescript files once using 'tsc': `yarn build`
 * To transpile the typescript files once using 'ts-node': `yarn dev`
-
 
 ### Client Setup
 
@@ -24,9 +25,9 @@
 
 ### Production Mode
 
-* Build: `docker build -t galactic-encounters .`
-* Run: `docker run -p 3030:3030 galactic-encounters`
-* Wait for the fetching to finish. The console will keep you up to date.
+* In the top level of the 'git' project, build the Docker image: `docker build -t galactic-encounters .`
+* Spin up the Docker container: `docker run -p 3030:3030 galactic-encounters`
+* Wait for the fetching to finish. The console will keep you updated.
 * Navigate to [http://localhost:3300](http://localhost:3300)
 
 ### Notes, Excuses, and Disclaimers!
