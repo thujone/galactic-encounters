@@ -7,6 +7,8 @@ const app = express();
 const PORT = 3300;
 const BASE_URL = 'https://swapi.dev/api';
 
+// I had to add these to get Docker running. I think only the top one is actually necessary. But to remove
+// any of them and make sure it hasn't broken the Docker build and run processes would take me an hour or more.
 app.use(express.static('/app/client/public'));
 app.use(express.static('public'));
 app.use(express.static('/app/server/public'));
@@ -75,14 +77,13 @@ async function fetchAll(resourceType: StarWarsResource) {
     return results;
 }
 
-// I decided it would be best and easiest to just get all the idea upon server startup.
+// I decided it would be best and easiest to just get all the data upon server startup.
 // It's not a lot of data, so I think it's OK just to grab it all.
 // Running live requests through the proxy, with its 10 items per page, seems painful
 // and slow and probably error-prone. Another factor is the data doesn't change often,
 // or at all.
 async function initializeStarWarsData() {
-
-    // This actually takes some time to fetch the entire SWAPI. At least a minute or two.
+    // It actually takes some time to fetch the entire SWAPI. At least a minute or two.
     // Not because it's so much data, but because they have a rate limiter.
     console.log("Fetching data from `swapi.dev`. Please be patient...")
     try {
@@ -96,13 +97,14 @@ async function initializeStarWarsData() {
     }
 }
 
-// This is good for dev purposes only.
+// This is good for dev purposes.
 app.get('/api/all-data', (req, res) => {
     res.json(starWarsData);
 });
 
 app.get('/api/character-options', (req, res) => {
     const characterOptions = starWarsData.people.map(person => {
+        // SWAPI doesn't even have an id field, so it must be gleaned from the url. Pretty annoying.
         const id: string = `${person.url.match(/\d+/)}`;
         return {
             label: person.name,
@@ -112,8 +114,7 @@ app.get('/api/character-options', (req, res) => {
     res.json(characterOptions);
 });
 
-// Do the processing on the server side to determine what encounters are shared between
-// the two characters.
+// Determine what encounters are shared between the two characters.
 app.get('/api/encounters', (req, res) => {
     const { id1, id2 } = req.query;
 
