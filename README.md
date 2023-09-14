@@ -26,7 +26,7 @@
 ### Production Mode
 
 * In the top level of the 'git' project, build the Docker image: `docker build -t galactic-encounters .`
-* Spin up the Docker container: `docker run -p 3030:3030 galactic-encounters`
+* Spin up the Docker container: `docker run -p 3300:3300 galactic-encounters`
 * Wait for the fetching to finish. The console will keep you updated.
 * Navigate to [http://localhost:3300](http://localhost:3300)
 
