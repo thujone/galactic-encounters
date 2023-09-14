@@ -1,3 +1,8 @@
+# NOTE: I just wanted to get this done last night, and I was kind of running of steam.
+# Obviously, I'm aware these settings aren't the best way to do this. Normally, the
+# different envs would have their own configurations using .env and separate webpack
+# for dev vs prod, etcetera. My focus here was getting this done quickly.
+
 ##### Client Build Stage #####
 FROM node:18 AS client-build
 WORKDIR /app/client
