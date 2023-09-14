@@ -7,6 +7,10 @@ const app = express();
 const PORT = 3300;
 const BASE_URL = 'https://swapi.dev/api';
 
+app.use(express.static('/app/client/public'));
+app.use(express.static('public'));
+app.use(express.static('/app/server/public'));
+
 enum StarWarsResource {
     PEOPLE = 'people',
     PLANETS = 'planets',
@@ -162,7 +166,16 @@ app.get('/api/encounters', (req, res) => {
     });
 });
 
+// This is just for the prod environment, so that
+// http://localhost:3300 in the browser will bring up the app index page.
+// Obviously, this isn't the best way to set things up between environments,
+// but it works for now.
+app.get('*', (req, res) => {
+    res.sendFile('/app/client/public/index.html');
+});
+
 app.listen(PORT, () => {
     console.log(`Server started on http://localhost:${PORT}`);
     initializeStarWarsData();
 });
+
