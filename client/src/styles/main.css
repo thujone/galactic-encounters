@@ -1,0 +1,196 @@
+/*
+   NOTE: Just keeping this file as basic and clean as possible, with the
+   thought that it might eventually be moved into a CSS / CSS-in-JS framework.
+*/
+
+
+/* App component styles */
+
+/*
+    NOTE: I realize these variable names don't really follow any kind of convention.
+    Ideally, CSS variables would be carefully named based on the design documents
+    and on whatever framework is being used.
+*/
+:root {
+    --text-color: #EDEDED;
+    --link-color: #FFD700;
+    --emphatic-color: #FF4500;
+    --emphatic-hover-color: #FF8944;
+    --background-color: #181818;
+    --menu-background-color: #000;
+    --menu-text-color: #000;
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* background image filesize probably too large, but not really my focus */
+    background-image: url('../images/imperial-cruisers.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    opacity: 1;
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-hover-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 1.25em;
+}
+
+h2 {
+    color: var(--emphatic-color);
+}
+
+h3 {
+    /* Make sure the white text remains readable on the background-image */
+    text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.7);
+}
+
+marquee {
+    color: var(--link-hover-color);
+}
+
+.character-dropdowns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(12em, 24em));
+    gap: 1em;
+    max-width: 49em;
+    margin: 0 auto;
+    align-items: center;
+    justify-items: center;
+}
+
+
+/* CharacterSelector component styles */
+
+.character-dropdown__control {
+    min-width: 12em;
+    max-width: 24em;
+    width: 100%;
+    color: var(--menu-text-color);
+}
+
+.character-dropdown__menu {
+    color: var(--menu-text-color);
+}
+
+/* Actually, got stuck here trying to figure out how to make the text black. */
+/* `react-select` documentation is not that good and I wasted some time on this. */
+/* I just decided to use the DOM IDs and move on. */
+#react-select-2-listbox,
+#react-select-3-listbox {
+    color: var(--menu-text-color);
+}
+
+
+/* EncountersPanel component styles */
+
+.encounters-panel {
+    margin: 2em auto;
+    width: 80%;
+    background-color: rgba(10, 10, 50, 0.7);
+    padding: 1.25em;
+    border-radius: 0.5em;
+    box-shadow: 0 0.13em 0.5em rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centering content */
+}
+
+.encounters-panel > * {
+    opacity: 1;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-1.2em);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-1.2em);
+    }
+}
+
+.encounters-panel-entering,
+.encounters-panel-entered {
+    animation: fadeIn 1s forwards;
+}
+
+.encounters-panel-exiting {
+    animation: fadeOut 1s forwards;
+}
+
+.encounters-panel .reset-btn {
+    display: inline-block;
+    background-color: var(--emphatic-color);
+    border: none;
+    color: var(--link-color);
+    padding: 0.6em 1.2em;
+    border-radius: 1.2em;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0.13em 0.5em rgba(0, 0, 0, 0.2);
+    margin: 1em auto;
+}
+
+.encounters-panel .reset-btn:hover {
+    background-color: var(--emphatic-hover-color);
+}
+
+.encounters-panel .reset-btn:active {
+    background-color: var(--emphatic-active-color);
+}
+
+.encounters-panel ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.encounters-panel li {
+    margin-bottom: 0.5em;
+    font-size: 1rem;
+    display: block;
+}

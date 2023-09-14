@@ -1,0 +1,15 @@
+# dependencies
+/node_modules
+/dist
+
+# logs
+*.log
+
+# environment variables
+.env
+
+# misc
+.DS_Store
+
+# IDEs and editors
+.vscode/
